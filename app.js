@@ -38,7 +38,7 @@ let heroes = [{
 {
 
         name: "Arthas Menethil",
-        attack: 25,
+        attack: 40,
         counterAttack: 15,
         hp: 375,
         img: "./assets/images/arthas.png",
@@ -247,7 +247,7 @@ heroes = [{
 {
 
         name: "Arthas Menethil",
-        attack: 25,
+        attack: 40,
         counterAttack: 15,
         hp: 375,
         img: "./assets/images/arthas.png",
