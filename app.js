@@ -29,7 +29,7 @@ let heroes = [{
         name: "Sylvanas Windrunner",
         attack: 55,
         counterAttack: 20,
-        hp: 205,
+        hp: 275,
         img: "./assets/images/sylvanasimg.png",
         sound: "./assets/sounds/sylvanasaudio.mp3",
 
@@ -221,42 +221,46 @@ attackerChosen = false;
 defenderChosen = false;
 enemyArray = [];
 enemyHP = ""
-heroes = heroes = [{
+heroes = [{
 
         name: "Illidan Stormrage",
-        attack: 105,
+        attack: 65,
         counterAttack: 15,
-        hp: 225,
+        hp: 305,
         img: "./assets/images/illidanimg.png",
         sound: "./assets/sounds/illi.mp3"
 
 }, {
 
         name: "Sylvanas Windrunner",
-        attack: 35,
-        counterAttack: 30,
+        attack: 55,
+        counterAttack: 20,
         hp: 205,
-        img: "./assets/images/sylvanasimg.png"
+        img: "./assets/images/sylvanasimg.png",
+        sound: "./assets/sounds/sylvanasaudio.mp3",
 
 
 },
 {
 
         name: "Arthas Menethil",
-        attack: 35,
-        counterAttack: 25,
-        hp: 275,
-        img: "./assets/images/arthas.png"
+        attack: 25,
+        counterAttack: 15,
+        hp: 375,
+        img: "./assets/images/arthas.png",
+        sound: "./assets/sounds/lichaudio.mp3",
+
 
 
 },
 {
 
-        name: "Jaina Proudmoore",
-        attack: 85,
-        counterAttack: 50,
+        name: "Kael'Thas Sunstrider",
+        attack: 105,
+        counterAttack: 40,
         hp: 155,
-        img: "./assets/images/jaina.png"
+        img: "./assets/images/kaelimg.png",
+        sound: "./assets/sounds/kaelaudio.mp3",
 
 
 },
