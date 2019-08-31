@@ -238,7 +238,7 @@ heroes = [{
         name: "Sylvanas Windrunner",
         attack: 55,
         counterAttack: 20,
-        hp: 205,
+        hp: 275,
         img: "./assets/images/sylvanasimg.png",
         sound: "./assets/sounds/sylvanasaudio.mp3",
 
