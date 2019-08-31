@@ -5,20 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+   
 </head>
 <body>
     
-    <h1>Welcome To Warcraft 4</h1>
 
-    <div id="available-characters">Available Characters<span id="available-characters-here"></span></div>
-    
-    <div id="attacking-character">Attacking Characters<span id="attacking-character-here"></span></div>
-    
-    <div id="enemy-characters">Enemy Characters Remaining<span id="enemy-characters-here"></span></div>
-    <div id="defending-character">Defending Character<span id="defending-character-here"></span></div>
+    <div id="game-container" class="animated fadeIn">
+    <div id="instructions">
+        <img class="wc4img" src="assets/images/wc4.png">
+        <h1>Select Your Hero & Defeat The Remaining Heroes</h1>
+    </div>
+
+    <div id="available-characters"></div>
+
+    <div id="combat-container">
+    <div id="attacking-character"></div>
     <div id="attack-btn-display"><span id="button-here"></span></div>
+    <div id="defending-character"></div>
+    </div>
 
+
+    <div id="enemy-characters"></div>
+
+</div>
+
+   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

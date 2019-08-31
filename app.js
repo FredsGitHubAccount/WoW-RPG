@@ -6,8 +6,10 @@ let attackerChosen = false
 let defenderChosen = false
 let enemyArray = [];
 
+
 let playerAP;
 let playerHP;
+let heroName;
 let enemyHP;
 let enemyCA;
 
@@ -17,29 +19,36 @@ let heroes = [{
         attack: 105,
         counterAttack: 15,
         hp: 225,
+        img: "./assets/images/illidanimg.png"
 
 }, {
 
         name: "Sylvanas Windrunner",
         attack: 35,
-        counterAttack: 15,
+        counterAttack: 30,
         hp: 205,
+        img: "./assets/images/sylvanasimg.png"
+
 
 },
 {
 
-        name: "Arthas",
+        name: "Arthas Menethil",
         attack: 35,
-        counterAttack: 15,
+        counterAttack: 25,
         hp: 275,
+        img: "./assets/images/arthas.png"
+
 
 },
 {
 
-        name: "Kael'Thas",
+        name: "Jaina Proudmoore",
         attack: 85,
-        counterAttack: 15,
-        hp: 185,
+        counterAttack: 50,
+        hp: 155,
+        img: "./assets/images/jaina.png"
+
 
 },
 
@@ -47,13 +56,14 @@ let heroes = [{
 // display heroes & assign them attributes
 function renderHeroes() {
         for (let i = 0; i < heroes.length; i++) {
-                let chooseCharacter = $("<div class='character-choice'>")
-                chooseCharacter.append(`<h2>${heroes[i].name}</h2><h3> Attack : ${heroes[i].attack}</h3><h3>HP : ${heroes[i].hp}</h3>`)
+                let chooseCharacter = $("<div class='character-choice animated fadeIn'>")
+                chooseCharacter.append(`<h2>${heroes[i].name}</h2><h3 class="atkdyn"> Attack : ${heroes[i].attack}</h3><h3 class="hpdyn">HP : ${heroes[i].hp}</h3> <img src=${heroes[i].img}>`)
                 chooseCharacter.attr("name", heroes[i].name)
                 chooseCharacter.attr("attack", heroes[i].attack)
                 chooseCharacter.attr("counterattack", heroes[i].counterAttack)
                 chooseCharacter.attr("hp", heroes[i].hp)
                 chooseCharacter.attr("list", i)
+              
                 $("#available-characters").append(chooseCharacter)
         }
 }
@@ -62,20 +72,23 @@ $(document).on("click", ".character-choice", function () {
 
         if (!attackerChosen) {
                 $("#available-characters").empty()
-                $("#attacking-character-here").append(this)
                 attacker = this
                 playerHP = $(attacker).attr("hp")
                 playerAP = $(attacker).attr("attack")
+                $("#attacking-character").append(attacker)
                 console.log(`My player HP is ` + playerHP)
                 console.log(`My Player Attack is ` + playerAP)
-                heroes.splice($(this).attr("list"), 1)
+                heroes.splice($(attacker).attr("list"), 1)
                 attackerChosen = true;
+                $("#instructions").empty()
+                $("#instructions").append(`<h1 class="animated fadeIn">You Have Chosen ${$(this).attr("name")} </h1>`)
+                $("#instructions").append(`<h2 class="animated fadeIn">Select Your Enemy</h2>`)
 
 
 
                 for (let i = 0; i < heroes.length; i++) {
-                        let enemyCharacter = $("<div class='enemy-choice'>")
-                        enemyCharacter.append(`<h2>${heroes[i].name}</h2>`)
+                        let enemyCharacter = $("<div class='enemy-choice animated fadeIn'>")
+                        enemyCharacter.append(`<h2>${heroes[i].name}</h2><h3> Counterattack : ${heroes[i].counterAttack}</h3><h3 class=enemyhpdyn${i}>HP : ${heroes[i].hp}</h3> <img src=${heroes[i].img}>`)
                         enemyCharacter.attr("name", heroes[i].name)
                         enemyCharacter.attr("attack", heroes[i].attack)
                         enemyCharacter.attr("counterattack", heroes[i].counterAttack)
@@ -83,7 +96,7 @@ $(document).on("click", ".character-choice", function () {
                         enemyCharacter.attr("list", i)
                         enemyArray.push(heroes[i])
                      
-                        $("#enemy-characters-here").append(enemyCharacter)
+                        $("#enemy-characters").append(enemyCharacter)
 
                 }
                 console.log(enemyArray)
@@ -105,7 +118,7 @@ $(document).on("click", ".enemy-choice", function () {
                 console.log(`The Enemy HP is ` + enemyHP)
                 enemyCA = $(defender).attr("counterattack")
                 console.log(`The Enemy Counter Attack is ` + enemyCA)
-                $("#defending-character-here").append(this)
+                $("#defending-character").append(defender)
 
         }
 
@@ -116,10 +129,12 @@ $(document).on("click", ".enemy-choice", function () {
 
         if ((defenderChosen) && (attackerChosen)) {
 
-                let attackButton = $("<button id='commence-battle'>")
-                attackButton.text("Attack Here!")
+                let attackButton = $("<div id='commence-battle'>")
+                attackButton.append('<img src="./assets/images/combat.png" class="swords">')
                 $("#button-here").html(attackButton)
-
+                $("#instructions").empty();
+                $("#instructions").append(`<h1>Your Chosen Enemy is ${$(defender).attr("name")} </h1>`)
+                $("#instructions").append(`<h1>Click The Button To Attack</h1>`)
         }
 
 })
@@ -127,34 +142,45 @@ $(document).on("click", ".enemy-choice", function () {
 
 $(document).on("click", "#commence-battle", function () {
 
+        let id = $(defender).attr("list")
 
         enemyHP = enemyHP - playerAP
         playerHP = playerHP - enemyCA
+        $(".atkdyn").html(`Attack : ${playerAP}`)
+        $(".hpdyn").html(`HP : ${playerHP}`)
+        $(`.enemyhpdyn${id}`).html(`HP : ${enemyHP}`)
 
-        console.log(`The enemy HP is ` + enemyHP)
-        console.log(`My HP is ` + playerHP)
+        $("#instructions").empty()
+        $("#instructions").append(`<h1 class="animated fadeIn">You have attacked ${$(defender).attr("name")} for ${playerAP} damage!`)
+        $("#instructions").append(`<h1 class="animated fadeIn">${$(defender).attr("name")} has counter attacked for ${enemyCA}!`)
 
 
-        if (enemyHP < 1) {
-                alert(`You have defeated ${$(defender).attr("name")}`);
+
+
+        if (playerHP < 1){
+                alert("you have lost")
+                resetGame()
+        }
+
+        else if (enemyHP < 1) {
+                $("#instructions").empty()
+                $("#instructions").append(`<h1 class="animated fadeIn">You Have Defeated ${$(defender).attr("name")}! Your Attack Has Increased!</h1>`);
+                $("#instructions").append(`<h1 class="animated fadeIn">Select Another Enemy to Fight</h1>`)
                 enemyArray.splice($(this).attr("list"), 1);
                 defenderChosen = false;
                 console.log(enemyArray);
-                $("#defending-character-here").empty();
+                $("#defending-character").empty();
                 $("#button-here").empty();
                 gameOverCheck();
+                
                 playerAP = (parseInt(playerAP) + 30)
+                $(".atkdyn").html(`Attack : ${playerAP}`)
                 console.log(playerAP)
                
          
         }
 
-        else if (playerHP < 1){
-                alert("you have lost")
-                resetGame()
-        }
-
-
+  
 
 })
 
@@ -207,9 +233,9 @@ heroes = [{
 
 ]
 
-$("#attacking-character-here").empty();
-$("#defending-character-here").empty();
-$("#enemy-characters-here").empty();
+$("#attacking-character").empty();
+$("#defending-character").empty();
+$("#enemy-characters").empty();
 $("#available-characters").text("Available Characters");
 $("#button-here").empty();
 renderHeroes();
