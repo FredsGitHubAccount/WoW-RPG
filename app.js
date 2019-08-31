@@ -148,6 +148,7 @@ $(document).on("click", ".enemy-choice", function () {
                 $("#instructions").empty();
                 $("#instructions").append(`<h1>Your Chosen Enemy is ${$(defender).attr("name")} </h1>`)
                 $("#instructions").append(`<h1>Click The Swords To Attack</h1>`)
+                // $("enemy-").css("width","");
 
              
         }
@@ -208,6 +209,8 @@ function gameOverCheck() {
                 $("#instructions").append(`<h1 class="animated fadeIn">You Have Defeated All The Enemies!</h1>`);
                 $("#instructions").append(`<h1 class="animated fadeIn">You Truly Are Azeroth's Finest Defender!</h1>`)
                 $("#instructions").append(`<h1 class="animated fadeIn">We Will Return You To The Main Menu Shortly!</h1>`)
+            
+                $("#combat-container").css("grid-template-columns","1fr");
                 setTimeout(resetGame,10000)
                
         }
