@@ -18,17 +18,17 @@ let enemyCA;
 let heroes = [{
 
         name: "Illidan Stormrage",
-        attack: 105,
+        attack: 65,
         counterAttack: 15,
-        hp: 225,
+        hp: 305,
         img: "./assets/images/illidanimg.png",
         sound: "./assets/sounds/illi.mp3"
 
 }, {
 
         name: "Sylvanas Windrunner",
-        attack: 35,
-        counterAttack: 30,
+        attack: 55,
+        counterAttack: 20,
         hp: 205,
         img: "./assets/images/sylvanasimg.png",
         sound: "./assets/sounds/sylvanasaudio.mp3",
@@ -38,9 +38,9 @@ let heroes = [{
 {
 
         name: "Arthas Menethil",
-        attack: 35,
-        counterAttack: 25,
-        hp: 275,
+        attack: 25,
+        counterAttack: 15,
+        hp: 375,
         img: "./assets/images/arthas.png",
         sound: "./assets/sounds/lichaudio.mp3",
 
@@ -50,8 +50,8 @@ let heroes = [{
 {
 
         name: "Kael'Thas Sunstrider",
-        attack: 85,
-        counterAttack: 50,
+        attack: 105,
+        counterAttack: 40,
         hp: 155,
         img: "./assets/images/kaelimg.png",
         sound: "./assets/sounds/kaelaudio.mp3",
@@ -147,7 +147,7 @@ $(document).on("click", ".enemy-choice", function () {
                 $("#button-here").html(attackButton)
                 $("#instructions").empty();
                 $("#instructions").append(`<h1>Your Chosen Enemy is ${$(defender).attr("name")} </h1>`)
-                $("#instructions").append(`<h1>Click The Button To Attack</h1>`)
+                $("#instructions").append(`<h1>Click The Swords To Attack</h1>`)
 
              
         }
@@ -204,8 +204,12 @@ $(document).on("click", "#commence-battle", function () {
 
 function gameOverCheck() {
         if(enemyArray.length < 1){
-                alert("Victory");
-                resetGame();
+                $("#instructions").empty();
+                $("#instructions").append(`<h1 class="animated fadeIn">You Have Defeated All The Enemies!</h1>`);
+                $("#instructions").append(`<h1 class="animated fadeIn">You Truly Are Azeroth's Finest Defender!</h1>`)
+                $("#instructions").append(`<h1 class="animated fadeIn">We Will Return You To The Main Menu Shortly!</h1>`)
+                setTimeout(resetGame,10000)
+               
         }
 
 }
