@@ -5,6 +5,8 @@ let defender = ""
 let attackerChosen = false
 let defenderChosen = false
 let enemyArray = [];
+let audio;
+
 
 
 let playerAP;
@@ -19,7 +21,8 @@ let heroes = [{
         attack: 105,
         counterAttack: 15,
         hp: 225,
-        img: "./assets/images/illidanimg.png"
+        img: "./assets/images/illidanimg.png",
+        sound: "./assets/sounds/illi.mp3"
 
 }, {
 
@@ -27,7 +30,8 @@ let heroes = [{
         attack: 35,
         counterAttack: 30,
         hp: 205,
-        img: "./assets/images/sylvanasimg.png"
+        img: "./assets/images/sylvanasimg.png",
+        sound: "./assets/sounds/sylvanasaudio.mp3",
 
 
 },
@@ -37,17 +41,20 @@ let heroes = [{
         attack: 35,
         counterAttack: 25,
         hp: 275,
-        img: "./assets/images/arthas.png"
+        img: "./assets/images/arthas.png",
+        sound: "./assets/sounds/lichaudio.mp3",
+
 
 
 },
 {
 
-        name: "Jaina Proudmoore",
+        name: "Kael'Thas Sunstrider",
         attack: 85,
         counterAttack: 50,
         hp: 155,
-        img: "./assets/images/jaina.png"
+        img: "./assets/images/kaelimg.png",
+        sound: "./assets/sounds/kaelaudio.mp3",
 
 
 },
@@ -62,6 +69,7 @@ function renderHeroes() {
                 chooseCharacter.attr("attack", heroes[i].attack)
                 chooseCharacter.attr("counterattack", heroes[i].counterAttack)
                 chooseCharacter.attr("hp", heroes[i].hp)
+                chooseCharacter.attr("sound",heroes[i].sound)
                 chooseCharacter.attr("list", i)
               
                 $("#available-characters").append(chooseCharacter)
@@ -80,9 +88,12 @@ $(document).on("click", ".character-choice", function () {
                 console.log(`My Player Attack is ` + playerAP)
                 heroes.splice($(attacker).attr("list"), 1)
                 attackerChosen = true;
+                audio = new Audio($(attacker).attr("sound"))
+                audio.play()
                 $("#instructions").empty()
                 $("#instructions").append(`<h1 class="animated fadeIn">You Have Chosen ${$(this).attr("name")} </h1>`)
-                $("#instructions").append(`<h2 class="animated fadeIn">Select Your Enemy</h2>`)
+                $("#instructions").append(`<h2 class="animated fadeIn reddirection">Select Your Enemy</h2>`)
+                
 
 
 
@@ -93,6 +104,7 @@ $(document).on("click", ".character-choice", function () {
                         enemyCharacter.attr("attack", heroes[i].attack)
                         enemyCharacter.attr("counterattack", heroes[i].counterAttack)
                         enemyCharacter.attr("hp", heroes[i].hp)
+                        enemyCharacter.attr("sound",heroes[i].sound)
                         enemyCharacter.attr("list", i)
                         enemyArray.push(heroes[i])
                      
@@ -119,7 +131,8 @@ $(document).on("click", ".enemy-choice", function () {
                 enemyCA = $(defender).attr("counterattack")
                 console.log(`The Enemy Counter Attack is ` + enemyCA)
                 $("#defending-character").append(defender)
-
+                audio = new Audio($(defender).attr("sound"))
+                audio.play()
         }
 
         else {
@@ -135,6 +148,8 @@ $(document).on("click", ".enemy-choice", function () {
                 $("#instructions").empty();
                 $("#instructions").append(`<h1>Your Chosen Enemy is ${$(defender).attr("name")} </h1>`)
                 $("#instructions").append(`<h1>Click The Button To Attack</h1>`)
+
+             
         }
 
 })
@@ -153,19 +168,22 @@ $(document).on("click", "#commence-battle", function () {
         $("#instructions").empty()
         $("#instructions").append(`<h1 class="animated fadeIn">You have attacked ${$(defender).attr("name")} for ${playerAP} damage!`)
         $("#instructions").append(`<h1 class="animated fadeIn">${$(defender).attr("name")} has counter attacked for ${enemyCA}!`)
+        audio = new Audio(`./assets/sounds/combatsound.mp3`)
+        audio.play()
 
 
 
 
         if (playerHP < 1){
-                alert("you have lost")
-                resetGame()
+                $("#instructions").html(`<h1 class="animated fadeIn"> You Have Faught Nobly & Lost.  We Will Return You To The Main Menu Shortly`)
+                $("#button-here").empty();
+                setTimeout(resetGame,10000)
         }
 
         else if (enemyHP < 1) {
                 $("#instructions").empty()
                 $("#instructions").append(`<h1 class="animated fadeIn">You Have Defeated ${$(defender).attr("name")}! Your Attack Has Increased!</h1>`);
-                $("#instructions").append(`<h1 class="animated fadeIn">Select Another Enemy to Fight</h1>`)
+                $("#instructions").append(`<h1 class="animated fadeIn">Select Another Enemy To Fight!</h1>`)
                 enemyArray.splice($(this).attr("list"), 1);
                 defenderChosen = false;
                 console.log(enemyArray);
@@ -199,35 +217,43 @@ attackerChosen = false;
 defenderChosen = false;
 enemyArray = [];
 enemyHP = ""
-heroes = [{
+heroes = heroes = [{
 
         name: "Illidan Stormrage",
         attack: 105,
         counterAttack: 15,
         hp: 225,
+        img: "./assets/images/illidanimg.png",
+        sound: "./assets/sounds/illi.mp3"
 
 }, {
 
         name: "Sylvanas Windrunner",
         attack: 35,
-        counterAttack: 25,
+        counterAttack: 30,
         hp: 205,
+        img: "./assets/images/sylvanasimg.png"
+
 
 },
 {
 
-        name: "Arthas",
+        name: "Arthas Menethil",
         attack: 35,
-        counterAttack: 15,
+        counterAttack: 25,
         hp: 275,
+        img: "./assets/images/arthas.png"
+
 
 },
 {
 
-        name: "Kael'Thas",
+        name: "Jaina Proudmoore",
         attack: 85,
-        counterAttack: 15,
-        hp: 185,
+        counterAttack: 50,
+        hp: 155,
+        img: "./assets/images/jaina.png"
+
 
 },
 
@@ -236,11 +262,12 @@ heroes = [{
 $("#attacking-character").empty();
 $("#defending-character").empty();
 $("#enemy-characters").empty();
-$("#available-characters").text("Available Characters");
+$("#available-characters").empty();
 $("#button-here").empty();
+$("#instructions").empty();
+$("#instructions").append(`<img class="wc4img" src="assets/images/wc4.png">`)
+$("#instructions").append(`<h1 class="animated fadeIn">Select Your Hero & Defeat The Remaining Heroes`)
 renderHeroes();
-
-
 
 }
 
