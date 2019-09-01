@@ -143,10 +143,10 @@ border-radius: 25px;
     grid-column-gap: 5px;
 }
 .wc4img{
-    height: 310px;
-    width: 310px;
-    margin-top:-100px;
-    margin-bottom:-100px;
+    height: 225px;
+    width: 225px;
+    margin-top:-50px;
+    margin-bottom:-50px;
     }
 
     img {
