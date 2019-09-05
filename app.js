@@ -6,7 +6,7 @@ let attackerChosen = false
 let defenderChosen = false
 let enemyArray = [];
 let audio;
-
+let bgMusic = new Audio("./assets/sounds/wowtheme.mp3")
 
 
 let playerAP;
@@ -93,7 +93,7 @@ $(document).on("click", ".character-choice", function () {
                 $("#instructions").empty()
                 $("#instructions").append(`<h1 class="animated fadeIn">You Have Chosen ${$(this).attr("name")} </h1>`)
                 $("#instructions").append(`<h2 class="animated fadeIn reddirection">Select Your Enemy</h2>`)
-                
+                bgMusic.play()
 
 
 
