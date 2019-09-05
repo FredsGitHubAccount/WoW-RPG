@@ -278,6 +278,8 @@ $("#button-here").empty();
 $("#instructions").empty();
 $("#instructions").append(`<img class="wc4img" src="assets/images/wc4.png">`)
 $("#instructions").append(`<h1 class="animated fadeIn">Select Your Hero & Defeat The Remaining Heroes`)
+$("#combat-container").css("grid-template-columns","1fr 1fr 1fr");
+$("#combat-container").css("grid-template-rows","1fr");
 renderHeroes();
 
 }
