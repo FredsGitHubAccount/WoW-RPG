@@ -14,12 +14,14 @@ let playerHP;
 let heroName;
 let enemyHP;
 let enemyCA;
+let maxHP;
+let maxEnemyHP;
 
 let heroes = [{
 
         name: "Illidan Stormrage",
-        attack: 65,
-        counterAttack: 15,
+        attack: 55,
+        counterAttack: 25,
         hp: 305,
         img: "./assets/images/illidanimg.png",
         sound: "./assets/sounds/illi.mp3"
@@ -27,9 +29,9 @@ let heroes = [{
 }, {
 
         name: "Sylvanas Windrunner",
-        attack: 55,
+        attack: 65,
         counterAttack: 20,
-        hp: 275,
+        hp: 285,
         img: "./assets/images/sylvanasimg.png",
         sound: "./assets/sounds/sylvanasaudio.mp3",
 
@@ -40,7 +42,7 @@ let heroes = [{
         name: "Arthas Menethil",
         attack: 40,
         counterAttack: 15,
-        hp: 375,
+        hp: 405,
         img: "./assets/images/arthas.png",
         sound: "./assets/sounds/lichaudio.mp3",
 
@@ -50,9 +52,9 @@ let heroes = [{
 {
 
         name: "Kael'Thas Sunstrider",
-        attack: 105,
+        attack: 115,
         counterAttack: 40,
-        hp: 155,
+        hp: 175,
         img: "./assets/images/kaelimg.png",
         sound: "./assets/sounds/kaelaudio.mp3",
 
@@ -70,8 +72,10 @@ function renderHeroes() {
                 chooseCharacter.attr("counterattack", heroes[i].counterAttack)
                 chooseCharacter.attr("hp", heroes[i].hp)
                 chooseCharacter.attr("sound",heroes[i].sound)
+                chooseCharacter.attr("maxhp",heroes[i].hp)
                 chooseCharacter.attr("list", i)
-              
+
+                
                 $("#available-characters").append(chooseCharacter)
         }
 }
@@ -83,6 +87,10 @@ $(document).on("click", ".character-choice", function () {
                 attacker = this
                 playerHP = $(attacker).attr("hp")
                 playerAP = $(attacker).attr("attack")
+                maxHP = $(attacker).attr("maxhp")
+                $("#attacking-character").append('<div class="health-border">')
+                
+                $(".health-border").append('<div class="health-bar">')
                 $("#attacking-character").append(attacker)
                 console.log(`My player HP is ` + playerHP)
                 console.log(`My Player Attack is ` + playerAP)
@@ -92,7 +100,7 @@ $(document).on("click", ".character-choice", function () {
                 audio.play()
                 $("#instructions").empty()
                 $("#instructions").append(`<h1 class="animated fadeIn">You Have Chosen ${$(this).attr("name")} </h1>`)
-                $("#instructions").append(`<h2 class="animated fadeIn reddirection">Select Your Enemy</h2>`)
+                $("#instructions").append(`<h1 class="animated fadeIn reddirection">Select Your Enemy</h1>`)
                 bgMusic.play()
 
 
@@ -106,6 +114,7 @@ $(document).on("click", ".character-choice", function () {
                         enemyCharacter.attr("hp", heroes[i].hp)
                         enemyCharacter.attr("sound",heroes[i].sound)
                         enemyCharacter.attr("list", i)
+                        enemyCharacter.attr("maxhp",heroes[i].hp)
                         enemyArray.push(heroes[i])
                      
                         $("#enemy-characters").append(enemyCharacter)
@@ -127,16 +136,18 @@ $(document).on("click", ".enemy-choice", function () {
                 defender = this
                 defenderChosen = true;
                 enemyHP = $(defender).attr("hp")
-                console.log(`The Enemy HP is ` + enemyHP)
                 enemyCA = $(defender).attr("counterattack")
-                console.log(`The Enemy Counter Attack is ` + enemyCA)
+                maxEnemyHP = $(defender).attr("maxhp")
+                $("#defending-character").append('<div class="enemy-health-border">')
+                $(".enemy-health-border").append('<div class="enemy-health-bar">')
                 $("#defending-character").append(defender)
                 audio = new Audio($(defender).attr("sound"))
                 audio.play()
         }
 
         else {
-                alert("You've already selected your enemy")
+                $("#instructions").html(`<h1>You Have Chosen ${$(attacker).attr("name")} </h1>`)
+                $("#instructions").append(`<h1 class="reddirection animated fadeIn"> You've Already Selected Your Enemy </h1>`)
                 return
         }
 
@@ -146,9 +157,9 @@ $(document).on("click", ".enemy-choice", function () {
                 attackButton.append('<img src="./assets/images/combat.png" class="swords">')
                 $("#button-here").html(attackButton)
                 $("#instructions").empty();
-                $("#instructions").append(`<h1>Your Chosen Enemy is ${$(defender).attr("name")} </h1>`)
-                $("#instructions").append(`<h1>Click The Swords To Attack</h1>`)
-                // $("enemy-").css("width","");
+                $("#instructions").append(`<h1 class="animated fadeIn">Your Chosen Enemy is ${$(defender).attr("name")} </h1>`)
+                $("#instructions").append(`<h1 class="animated fadeIn">Click The Swords To Attack</h1>`)
+              
 
              
         }
@@ -159,12 +170,16 @@ $(document).on("click", ".enemy-choice", function () {
 $(document).on("click", "#commence-battle", function () {
 
         let id = $(defender).attr("list")
-
+        
         enemyHP = enemyHP - playerAP
         playerHP = playerHP - enemyCA
+       
         $(".atkdyn").html(`Attack : ${playerAP}`)
         $(".hpdyn").html(`HP : ${playerHP}`)
         $(`.enemyhpdyn${id}`).html(`HP : ${enemyHP}`)
+        $(".health-bar").css("width", ((playerHP/maxHP)*100)+"%")
+        $(".enemy-health-bar").css("width", ((enemyHP/maxEnemyHP)*100)+"%")
+
 
         $("#instructions").empty()
         $("#instructions").append(`<h1 class="animated fadeIn">You have attacked ${$(defender).attr("name")} for ${playerAP} damage!`)
@@ -176,7 +191,7 @@ $(document).on("click", "#commence-battle", function () {
 
 
         if (playerHP < 1){
-                $("#instructions").html(`<h1 class="animated fadeIn"> You Have Faught Nobly & Lost.  We Will Return You To The Main Menu Shortly`)
+                $("#instructions").html(`<h1 class="animated fadeIn"> You Have Faught Nobly & Lost.  We Will Return You To The Main Menu Shortly!`)
                 $("#button-here").empty();
                 setTimeout(resetGame,10000)
         }
@@ -192,7 +207,7 @@ $(document).on("click", "#commence-battle", function () {
                 $("#button-here").empty();
                 gameOverCheck();
                 
-                playerAP = (parseInt(playerAP) + 30)
+                playerAP = (parseInt(playerAP) + 20)
                 $(".atkdyn").html(`Attack : ${playerAP}`)
                 console.log(playerAP)
                
@@ -209,7 +224,10 @@ function gameOverCheck() {
                 $("#instructions").append(`<h1 class="animated fadeIn">You Have Defeated All The Enemies!</h1>`);
                 $("#instructions").append(`<h1 class="animated fadeIn">You Truly Are Azeroth's Finest Defender!</h1>`)
                 $("#instructions").append(`<h1 class="animated fadeIn">We Will Return You To The Main Menu Shortly!</h1>`)
-            
+                $(".health-bar").remove();
+                $(".enemy-health-bar").remove();
+                $(".health-border").remove();
+                $(".enemy-health-border").remove();
                 $("#combat-container").css("grid-template-columns","1fr");
                 setTimeout(resetGame,10000)
                
@@ -227,8 +245,8 @@ enemyHP = ""
 heroes = [{
 
         name: "Illidan Stormrage",
-        attack: 65,
-        counterAttack: 15,
+        attack: 55,
+        counterAttack: 25,
         hp: 305,
         img: "./assets/images/illidanimg.png",
         sound: "./assets/sounds/illi.mp3"
@@ -236,9 +254,9 @@ heroes = [{
 }, {
 
         name: "Sylvanas Windrunner",
-        attack: 55,
+        attack: 65,
         counterAttack: 20,
-        hp: 275,
+        hp: 285,
         img: "./assets/images/sylvanasimg.png",
         sound: "./assets/sounds/sylvanasaudio.mp3",
 
@@ -249,7 +267,7 @@ heroes = [{
         name: "Arthas Menethil",
         attack: 40,
         counterAttack: 15,
-        hp: 375,
+        hp: 405,
         img: "./assets/images/arthas.png",
         sound: "./assets/sounds/lichaudio.mp3",
 
@@ -259,9 +277,9 @@ heroes = [{
 {
 
         name: "Kael'Thas Sunstrider",
-        attack: 105,
+        attack: 115,
         counterAttack: 40,
-        hp: 155,
+        hp: 175,
         img: "./assets/images/kaelimg.png",
         sound: "./assets/sounds/kaelaudio.mp3",
 
