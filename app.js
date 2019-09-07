@@ -91,6 +91,7 @@ $(document).on("click", ".character-choice", function () {
                 $("#attacking-character").append('<div class="health-border">')
                 
                 $(".health-border").append('<div class="health-bar">')
+                
                 $("#attacking-character").append(attacker)
                 console.log(`My player HP is ` + playerHP)
                 console.log(`My Player Attack is ` + playerAP)
@@ -179,22 +180,19 @@ $(document).on("click", "#commence-battle", function () {
         $(`.enemyhpdyn${id}`).html(`HP : ${enemyHP}`)
         $(".health-bar").css("width", ((playerHP/maxHP)*100)+"%")
         $(".enemy-health-bar").css("width", ((enemyHP/maxEnemyHP)*100)+"%")
-
-
         $("#instructions").empty()
         $("#instructions").append(`<h1 class="animated fadeIn">You have attacked ${$(defender).attr("name")} for ${playerAP} damage!`)
         $("#instructions").append(`<h1 class="animated fadeIn">${$(defender).attr("name")} has counter attacked for ${enemyCA}!`)
         audio = new Audio(`./assets/sounds/combatsound.mp3`)
         audio.play()
-
-
-
+        colorChanger()
 
         if (playerHP < 1){
                 $("#instructions").html(`<h1 class="animated fadeIn"> You Have Faught Nobly & Lost.  We Will Return You To The Main Menu Shortly!`)
                 $("#button-here").empty();
                 setTimeout(resetGame,10000)
         }
+
 
         else if (enemyHP < 1) {
                 $("#instructions").empty()
@@ -217,6 +215,18 @@ $(document).on("click", "#commence-battle", function () {
   
 
 })
+
+function colorChanger(){
+         if (((playerHP/maxHP)*100)<50){
+                $(".health-bar").css("background","orange")
+
+        }
+
+        if (((playerHP/maxHP)*100)<30){
+                $(".health-bar").css("background","red")
+
+        }
+}
 
 function gameOverCheck() {
         if(enemyArray.length < 1){
