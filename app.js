@@ -159,7 +159,7 @@ $(document).on("click", ".enemy-choice", function () {
                 $("#button-here").html(attackButton)
                 $("#instructions").empty();
                 $("#instructions").append(`<h1 class="animated fadeIn">Your Chosen Enemy is ${$(defender).attr("name")} </h1>`)
-                $("#instructions").append(`<h1 class="animated fadeIn">Click The Swords To Attack</h1>`)
+                $("#instructions").append(`<h1 class="animated fadeI reddirection">Click The Swords To Attack</h1>`)
               
 
              
@@ -192,7 +192,6 @@ $(document).on("click", "#commence-battle", function () {
                 $("#button-here").empty();
                 setTimeout(resetGame,10000)
         }
-
 
         else if (enemyHP < 1) {
                 $("#instructions").empty()
