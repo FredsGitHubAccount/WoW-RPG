@@ -1,4 +1,4 @@
-# Gif-Tastic
+# WoW-RPG
 
 ## Table of Contents 
 
