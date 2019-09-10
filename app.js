@@ -196,7 +196,7 @@ $(document).on("click", "#commence-battle", function () {
         else if (enemyHP < 1) {
                 $("#instructions").empty()
                 $("#instructions").append(`<h1 class="animated fadeIn">You Have Defeated ${$(defender).attr("name")}! Your Attack Has Increased!</h1>`);
-                $("#instructions").append(`<h1 class="animated fadeIn">Select Another Enemy To Fight!</h1>`)
+                $("#instructions").append(`<h1 class="animated fadeIn reddirection">Select Another Enemy To Fight!</h1>`)
                 enemyArray.splice($(this).attr("list"), 1);
                 defenderChosen = false;
                 console.log(enemyArray);
