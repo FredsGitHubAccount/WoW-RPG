@@ -15,8 +15,6 @@ Front-End
 - [ ] CSS
 - [ ] JQuery
 
-
-
 ### Setup 
 ```
 1. git clone https://github.com/FredsGitHubAccount/WoW-RPG.git
