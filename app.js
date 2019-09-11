@@ -88,9 +88,9 @@ $(document).on("click", ".character-choice", function () {
                 playerHP = $(attacker).attr("hp")
                 playerAP = $(attacker).attr("attack")
                 maxHP = $(attacker).attr("maxhp")
-                $("#attacking-character").append('<div class="health-border">')
+                $("#attacking-character").append('<div class="health-border animated fadeIn">')
                 
-                $(".health-border").append('<div class="health-bar">')
+                $(".health-border").append('<div class="health-bar animated fadeIn">')
                 
                 $("#attacking-character").append(attacker)
                 console.log(`My player HP is ` + playerHP)
@@ -139,8 +139,8 @@ $(document).on("click", ".enemy-choice", function () {
                 enemyHP = $(defender).attr("hp")
                 enemyCA = $(defender).attr("counterattack")
                 maxEnemyHP = $(defender).attr("maxhp")
-                $("#defending-character").append('<div class="enemy-health-border">')
-                $(".enemy-health-border").append('<div class="enemy-health-bar">')
+                $("#defending-character").append('<div class="enemy-health-border animated fadeIn">')
+                $(".enemy-health-border").append('<div class="enemy-health-bar animated fadeIn">')
                 $("#defending-character").append(defender)
                 audio = new Audio($(defender).attr("sound"))
                 audio.play()
@@ -159,7 +159,7 @@ $(document).on("click", ".enemy-choice", function () {
                 $("#button-here").html(attackButton)
                 $("#instructions").empty();
                 $("#instructions").append(`<h1 class="animated fadeIn">Your Chosen Enemy is ${$(defender).attr("name")} </h1>`)
-                $("#instructions").append(`<h1 class="animated fadeI reddirection">Click The Swords To Attack</h1>`)
+                $("#instructions").append(`<h1 class="animated fadeIn reddirection">Click The Swords To Attack</h1>`)
               
 
              
@@ -203,10 +203,9 @@ $(document).on("click", "#commence-battle", function () {
                 $("#defending-character").empty();
                 $("#button-here").empty();
                 gameOverCheck();
-                
                 playerAP = (parseInt(playerAP) + 20)
                 $(".atkdyn").html(`Attack : ${playerAP}`)
-                console.log(playerAP)
+               
                
          
         }
@@ -305,8 +304,8 @@ $("#button-here").empty();
 $("#instructions").empty();
 $("#instructions").append(`<img class="wc4img" src="assets/images/wc4.png">`)
 $("#instructions").append(`<h1 class="animated fadeIn">Select Your Hero & Defeat The Remaining Heroes`)
-$("#combat-container").css("grid-template-columns","1fr 1fr 1fr");
-$("#combat-container").css("grid-template-rows","1fr");
+$("#combat-container").css("grid-auto-flow","column");
+$("#combat-container").css("grid-template-rows","auto");
 renderHeroes();
 
 }
