@@ -7,8 +7,6 @@ let defenderChosen = false
 let enemyArray = [];
 let audio;
 let bgMusic = new Audio("./assets/sounds/wowtheme.mp3")
-
-
 let playerAP;
 let playerHP;
 let heroName;
@@ -304,7 +302,7 @@ $("#button-here").empty();
 $("#instructions").empty();
 $("#instructions").append(`<img class="wc4img" src="assets/images/wc4.png">`)
 $("#instructions").append(`<h1 class="animated fadeIn">Select Your Hero & Defeat The Remaining Heroes`)
-$("#combat-container").css("grid-auto-flow","column");
+$("#combat-container").css("grid-template-columns","2fr 1fr 2fr");
 $("#combat-container").css("grid-template-rows","auto");
 renderHeroes();
 
