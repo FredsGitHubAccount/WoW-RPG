@@ -234,7 +234,7 @@ function gameOverCheck() {
                 $(".enemy-health-bar").remove();
                 $(".health-border").remove();
                 $(".enemy-health-border").remove();
-                $("#combat-container").css("grid-auto-flow","columns");
+                $("#combat-container").css("grid-template-columns","1fr");
                 setTimeout(resetGame,5000)
                
         }
