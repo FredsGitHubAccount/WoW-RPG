@@ -60,7 +60,7 @@ img {
     width: 80%;
     grid-template-rows: 1fr;
     grid-template-columns: 2fr 1fr 2fr;
-    margin: 0 auto;;
+    margin: 0 auto;
     justify-content: center;
     justify-items: center;
     align-content: center;
