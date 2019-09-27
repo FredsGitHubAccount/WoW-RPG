@@ -105,7 +105,7 @@ $(document).on("click", ".character-choice", function () {
 
 
                 for (let i = 0; i < heroes.length; i++) {
-                        let enemyCharacter = $("<div class='enemy-choice animated fadeIn'>")
+                        let enemyCharacter = $("<div class='enemy-choice animated fadeInRight'>")
                         enemyCharacter.append(`<h2>${heroes[i].name}</h2><h3> Counterattack : ${heroes[i].counterAttack}</h3><h3 class=enemyhpdyn${i}>HP : ${heroes[i].hp}</h3> <img src=${heroes[i].img}>`)
                         enemyCharacter.attr("name", heroes[i].name)
                         enemyCharacter.attr("attack", heroes[i].attack)
