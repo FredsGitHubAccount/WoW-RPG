@@ -86,13 +86,14 @@ $(document).on("click", ".character-choice", function () {
                 playerHP = $(attacker).attr("hp")
                 playerAP = $(attacker).attr("attack")
                 maxHP = $(attacker).attr("maxhp")
+
                 $("#attacking-character").append('<div class="health-border animated fadeIn">')
-                
                 $(".health-border").append('<div class="health-bar animated fadeIn">')
-                
                 $("#attacking-character").append(attacker)
+
                 console.log(`My player HP is ` + playerHP)
                 console.log(`My Player Attack is ` + playerAP)
+
                 heroes.splice($(attacker).attr("list"), 1)
                 attackerChosen = true;
                 audio = new Audio($(attacker).attr("sound"))
@@ -213,12 +214,12 @@ $(document).on("click", "#commence-battle", function () {
 })
 
 function colorChanger(){
-         if (((playerHP/maxHP)*100)<50){
+         if (((playerHP/maxHP)*100)<67){
                 $(".health-bar").css("background","orange")
 
         }
 
-        if (((playerHP/maxHP)*100)<30){
+        if (((playerHP/maxHP)*100)<33){
                 $(".health-bar").css("background","red")
 
         }
