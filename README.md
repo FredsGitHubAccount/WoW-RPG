@@ -4,7 +4,7 @@
 
 ## Objective 
 
-Create an RPG based on the Warcraft Universe
+Create an RPG based on the Warcraft Universe with added signature voice lines and sounds from various Warcraft titles.
 
 ## Live link
 Open the live link at https://fredsgithubaccount.github.io/WoW-RPG/
