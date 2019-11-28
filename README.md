@@ -9,6 +9,9 @@ Create an RPG based on the Warcraft Universe
 ## Live link
 Open the live link at https://fredsgithubaccount.github.io/WoW-RPG/
 
+## Screenshot
+![Screenshot](/assets/images/ss.png)
+
 ### Technologies
 Front-End
 - [ ] HTML
